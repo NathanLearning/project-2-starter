@@ -4,7 +4,7 @@ const router = express.Router()
 
 router
   .get('/examples', (req, res) => {
-      res.send('OK examples')
+    res.send('OK examples')
   })
   .post('/examples', (req, res) => {
     console.log(req.body)
