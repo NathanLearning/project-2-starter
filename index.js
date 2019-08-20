@@ -14,9 +14,9 @@ app
   .use(express.urlencoded({ extended: false }))
   .use(express.json())
   .use(express.static(path.join(__dirname, 'public')))
+  .use(db)
   .use(htmlRoutes)
   .use(apiRoutes)
-  .use(db)
   .listen(PORT, () => {
     console.log(`
           oOOOOOo
