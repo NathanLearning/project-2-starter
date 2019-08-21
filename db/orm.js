@@ -34,7 +34,9 @@ const queryColumn = (table, column) => {
   })
 }
 
-// Takes table and column and have multiple values, (ie column id  value 1, 3, 5)
+// Takes table and column and can have multiple values, (ie column id  value 1, 3, 5)
+// If you want multiple values to be search you must give the value param an array
+// queryWhere('users', 'userName', 'Mitch') or queryWhere('users', 'userName', ['Mitch', 'Nate', 'Jalin'])
 const queryWhere = (table, column, value) => {
   return new Promise((resolve, reject) => {
     connection.query(
@@ -50,38 +52,22 @@ const queryWhere = (table, column, value) => {
   })
 }
 
-// This is super long and kinda confusing but basically allows us to show any columns we choose
-// The idea being we enter a userId and get back only the records that pertain to that user
-// Example of calling the function below
-const queryJoin = (
-  displayCols,
-  table,
-  joinTable,
-  joinCond,
-  joinCon,
-  joinTable2,
-  joinCond2,
-  joinCon2,
-  whereCol,
-  colVal
-) => {
+// This function allows you to search for any group from any table
+// And display any columns that you wish,
+// Pass the display columns in as an array
+// The WHERE needs a table and column and the and MUST use the letter designated for the table
+// EX: U.userName  I.itemName C.category etc
+const queryJoin = (displayCols, whereTblCol, colVal) => {
   return new Promise((resolve, reject) => {
-    const queryUrl =
-      'SELECT ?? FROM ?? JOIN ?? ON ?? = ?? JOIN ?? ON ?? = ?? WHERE ?? = ?'
+    const queryUrl = `SELECT ?? FROM userQuantity Q
+JOIN items I ON Q.itemId = I.itemId
+JOIN categories C ON I.itemCategory = C.categoryId
+JOIN users U ON Q.userId = U.userId
+JOIN itemCondition IC ON Q.itemConditionId = IC.itemConditionId
+WHERE ?? = ?`
     connection.query(
       queryUrl,
-      [
-        displayCols,
-        table,
-        joinTable,
-        joinCond,
-        joinCon,
-        joinTable2,
-        joinCond2,
-        joinCon2,
-        whereCol,
-        colVal
-      ],
+      [displayCols, whereTblCol, colVal],
       (err, res) => {
         if (err) {
           return reject(err)
@@ -94,23 +80,10 @@ const queryJoin = (
 }
 
 // queryJoin(
-//   [
-//     'items.itemName',
-//     'items.itemCondition',
-//     'categories.categoryName',
-//     'items.itemDescription',
-//     'userQuantity.quantity'
-//   ],
-//   'userQuantity',
-//   'items',
-//   'userQuantity.itemId',
-//   'items.itemId',
-//   'categories',
-//   'items.itemCategory',
-//   'categories.categoryId',
-//   'userId',
-//   1
-// ).then(res => console.table(res))
+//   ['I.itemName', 'IC.itemCondition', 'C.categoryName', 'Q.quantity'],
+//   'U.userName',
+//   'Mitch'
+// )
 
 // Takes table and column then the value you want to change then the column and its value where you want to change it
 const tableUpdate = (table, column, value, whereCol, colVal) => {
