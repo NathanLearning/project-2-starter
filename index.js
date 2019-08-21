@@ -5,6 +5,10 @@ const { db } = require('./db')
 const htmlRoutes = require('./routes/html')
 const apiRoutes = require('./routes/api')
 
+// Just left these here was using for when I was testing can get rid of them later.
+// const { queryJoin, queryAll, queryWhere } = require('./db/orm')
+// const { hash, compareHash } = require('./authentication/hash')
+
 const app = express()
 const PORT = process.env.PORT || 3030
 
