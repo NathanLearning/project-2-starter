@@ -1,39 +1,85 @@
-var http = require("http");
+const http = require("http");
 
-var PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
-var server = http.createServer(handleReq);
+const server = http.createServer(handleReq);
 
-server.listen(PORT, function() {
+server.listen(PORT, function () {
+
     console.log("Server listening on:" + PORT);
 })
 
 function handleReq(req, res) {
-    var path = req.url;
+
+    const path = req.url;
 
     switch (path) {
-        
-    case "index.html":
+
+        case "index.html":
             return displayRoot(path, req, res);
 
-    case "/userHome":
+        case "/userHome":
+
             return displayUserHome(path, req, res);
-    
-    default: return display404(path, req, res);
+
+        default: return display404(path, req, res);
     }
 }
 // ----------------------------------------
-var mysql = require('mysql')
+const mysql = require('mysql')
 
-var connection = mysql.createConnection({
-    host : 'localhost:3306',
-    user: 'user',
+const connection = mysql.createConnection({
+
+    host: 'localhost',
+
+    port: 8080,
+
+    user: 'root',
+
     password: 'password',
-    database: 'sql-seed/seed.sql'
-})
+
+    database: 'itemCollector'
+
+});
+
 console.log('connection');
 
-connection.connect(function(err) {
-    if (err) throw err
-    console.log('You are now connected...')
-})
+connection.connect(function (err) {
+
+    if (err) throw err;
+
+    console.log('connection as id' + connection.threadId);
+
+    Connection();
+
+});
+
+// function afterConnection() {
+
+//     connection.query("SELECT * FROM users", function (err, res) {
+
+//         if (err) throw err;
+
+//         console.log(res);
+
+//         connection.end();
+//     });
+// }
+//------------------------------------------
+
+// const express = require("express");
+
+// var app = express();
+
+// var PORT = process.env.PORT || 3300;
+
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+
+// require(".project-2-starter/db/orm.js");
+
+// app.listen(PORT, function () {
+
+//     console.log("App listening on PORT: " + PORT);
+
+// });
