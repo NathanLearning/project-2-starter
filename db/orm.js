@@ -72,7 +72,6 @@ WHERE ?? = ?`
         if (err) {
           return reject(err)
         }
-        console.table(res)
         return resolve(res)
       }
     )

@@ -1,12 +1,12 @@
 USE itemCollector;
 
-INSERT INTO users (userName, userPassword)
-VALUE
-('Mitch', '1234'),
-('Nathan', '6789'),
-('Jalin', '1457'),
-('Bob', '1359'),
-('Jim', '9864');
+-- INSERT INTO users (userName, userPassword)
+-- VALUE
+-- ('Mitch', '1234'),
+-- ('Nathan', '6789'),
+-- ('Jalin', '1457'),
+-- ('Bob', '1359'),
+-- ('Jim', '9864');
 
 USE itemCollector;
 INSERT INTO categories (categoryName)
@@ -56,11 +56,11 @@ USE itemCollector;
 -- DELETE FROM userQuantity WHERE itemId = 1 AND userId = 1
 -- SELECT * FROM users;
 
-SELECT itemName, categoryName, itemDescription, quantity
-FROM userQuantity
-JOIN items ON userQuantity.itemId = items.itemId
-JOIN categories ON items.itemCategory = categories.categoryId
-WHERE userId = 1;
+-- SELECT itemName, categoryName, itemDescription, quantity
+-- FROM userQuantity
+-- JOIN items ON userQuantity.itemId = items.itemId
+-- JOIN categories ON items.itemCategory = categories.categoryId
+-- WHERE userId = 1;
 
 -- USE itemCollector;
 -- SELECT * FROM items INNER JOIN categories ON items.itemCategory = categories.categoryId

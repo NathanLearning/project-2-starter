@@ -59,3 +59,10 @@ CREATE TABLE `userQuantity` (
   CONSTRAINT `FK_008` FOREIGN KEY `fkIdx_008` (`itemConditionId`)
   REFERENCES `itemCondition` (`itemConditionId`)
 );
+
+CREATE TABLE `userNotifications` (
+  `notificationId` INT AUTO_INCREMENT NOT NULL,
+  `quantityId` INT NOT NULL,
+  `notification` TINYTEXT,
+  PRIMARY KEY (`notificationId`)
+);
