@@ -12,6 +12,8 @@ router
       user: 'Nerd'
     })
   })
+  // checks to see if a cookie is set if not redirects to login page
+  // if yes queries to get item information based on user name
   .get('/itemView', sessionCheck, (req, res) => {
     queryJoin(
       [
@@ -24,7 +26,7 @@ router
       'U.userName',
       req.session.name
     ).then(res => console.table(res))
-    // console.log(req.session.name)
+    //  need to fill in the table data within the then with the results of the query
     res.render('index', {
       title: 'User View'
     })
