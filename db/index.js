@@ -3,7 +3,7 @@ const mysql = require('mysql')
 const opts = process.env.JAWSDB_URL || {
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: 'password',
   database: 'itemCollector'
 }
 
