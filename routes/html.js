@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 
 const { hash, compareHash, sessionCheck } = require('../authentication/hash')
+const { queryJoin } = require('../db/orm')
 
 router
   .get('/', (__, res) => {
@@ -12,7 +13,18 @@ router
     })
   })
   .get('/itemView', sessionCheck, (req, res) => {
-    console.log(req.session.name)
+    queryJoin(
+      [
+        'itemName',
+        'itemCondition',
+        'categoryName',
+        'itemDescription',
+        'quantity'
+      ],
+      'U.userName',
+      req.session.name
+    ).then(res => console.table(res))
+    // console.log(req.session.name)
     res.render('index', {
       title: 'User View'
     })

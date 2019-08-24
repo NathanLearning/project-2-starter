@@ -18,6 +18,7 @@ router
   .post('/createAccount', (req, res) => {
     hash(req.body.userName, req.body.password)
       .then(response => {
+        req.session.name = req.body.userName
         if (response) {
           return res.send(true)
         }

@@ -36,7 +36,6 @@ const compareHash = (userNameInput, userPassInput) => {
 
 const sessionCheck = (req, res, next) => {
   if (!req.session.name) {
-    console.log('no cookie')
     res.redirect('/')
   } else {
     next()
