@@ -7,17 +7,19 @@ const { newEntry, queryWhere } = require('../db/orm')
 // If this returns false need to give feedback that user name is already taken and not proceed
 const hash = (userNameInput, userPassInput) => {
   return new Promise((resolve, reject) => {
-    queryWhere('users', 'userName', userNameInput).then(res => {
-      if (res[0]) {
-        return resolve(false)
-      }
-      bcrypt
-        .hash(userPassInput, saltRounds)
-        .then(hash =>
-          newEntry('users', { userName: userNameInput, userPassword: hash })
+    queryWhere('users', 'userName', userNameInput)
+      .then(res => {
+        if (res[0]) {
+          return resolve(false)
+        }
+        bcrypt.hash(userPassInput, saltRounds).then(hash =>
+          newEntry('users', {
+            userName: userNameInput,
+            userPassword: hash
+          })
         )
-      return resolve(true)
-    })
+      })
+      .then(() => resolve(true))
   })
 }
 
@@ -29,7 +31,12 @@ const compareHash = (userNameInput, userPassInput) => {
       return resolve(false)
     }
     queryWhere('users', 'userName', userNameInput)
-      .then(res => bcrypt.compare(userPassInput, res[0].userPassword))
+      .then(user => {
+        if (user.length === 0) {
+          return resolve(false)
+        }
+        return bcrypt.compare(userPassInput, user[0].userPassword)
+      })
       .then(result => resolve(result))
   })
 }

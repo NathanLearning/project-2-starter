@@ -28,35 +28,45 @@ router
       .then(response => {
         // saving userName in the cookie here for use later on
         req.session.name = req.body.userName
+        console.log(req.session.name)
         if (response) {
           return res.send(true)
         }
+        console.log(req.session.name)
         return res.send('Please choose a different User Name')
       })
       .catch(err => console.log(err))
   })
+  // Takes the inputs from the new item form checks to see if item exists already
+  // if not creates the item then creates a record of the user owning the item
   .post('/newItem', (req, res) => {
-    queryWhere('items', 'itemName', req.body.itemName).then(result => {
-      if (result[0]) {
-        return res.send(false)
-      }
-      newEntry('items', {
-        itemName: req.body.itemName,
-        itemCategory: Number(req.body.category),
-        itemDescription: req.body.itemDescription
+    queryWhere('users', 'userName', req.session.name)
+      .then(user => {
+        req.session.userId = user[0].userId
       })
-        .then(() => queryWhere('items', 'itemName', req.body.itemName))
-        .then(results =>
-          newEntry('userQuantity', {
-            userId: req.session.userId,
-            itemId: results[0].itemId,
-            itemConditionId: Number(req.body.itemCondition),
-            quantity: Number(req.body.itemQuantity)
-          })
-        )
-        .then(() => res.send(true))
-        .catch(err => console.log(err))
-    })
+      .then(() => queryWhere('items', 'itemName', req.body.itemName))
+      .then(result => {
+        console.log(req.session.userId)
+        if (result[0]) {
+          return res.send(false)
+        }
+        newEntry('items', {
+          itemName: req.body.itemName,
+          itemCategory: Number(req.body.category),
+          itemDescription: req.body.itemDescription
+        })
+      })
+      .then(() => queryWhere('items', 'itemName', req.body.itemName))
+      .then(results =>
+        newEntry('userQuantity', {
+          userId: req.session.userId,
+          itemId: results[0].itemId,
+          itemConditionId: Number(req.body.itemCondition),
+          quantity: Number(req.body.itemQuantity)
+        })
+      )
+      .then(() => res.send(true))
+      .catch(err => console.log(err))
   })
   .get('/examples', (req, res) => {
     console.log(req.session.id)
