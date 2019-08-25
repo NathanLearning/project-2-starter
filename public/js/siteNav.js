@@ -42,10 +42,37 @@ const createAccount = e => {
     .catch(err => console.log(err))
 }
 
+const newItem = e => {
+  e.preventDefault()
+  axios
+    .post(
+      '/newItem',
+      {
+        itemName: selectId('itemName').value,
+        category: selectId('itemType').value,
+        itemQuantity: selectId('itemQuantity').value,
+        itemCondition: selectId('itemCondition').value,
+        itemDescription: selectId('itemDescription').value
+      },
+      selectId('newItemForm').reset()
+    )
+    .then(res => {
+      if (res.data === true) {
+        return window.location.reload()
+      }
+      // give user feedback that item already exists!
+      return console.log('Item already exists!')
+    })
+}
+
 if (selectId('loginBtn')) {
   selectId('loginBtn').addEventListener('click', login)
 }
 
 if (selectId('createAcctBtn')) {
   selectId('createAcctBtn').addEventListener('click', createAccount)
+}
+
+if (selectId('newItemBtn')) {
+  selectId('newItemBtn').addEventListener('click', newItem)
 }
