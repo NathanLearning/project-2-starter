@@ -10,7 +10,7 @@
             <h3 class="card-header">Add Item</h3>
             <div class="card-body">
                 <!-- <h5 class="card-title">Special title treatment</h5> -->
-            <form>
+            <form id="newItemForm">
                 <div class="form-row">
                     <div class="form-group col-md-8">
                     <label for="itemName">Name of Item</label>
@@ -20,13 +20,13 @@
                     <label for="itemType">Category</label>
                     <select id="itemType" class="form-control">
                         <option selected>Select</option>
-                        <option>...</option>
-                        <option>...</option>
-                        <option>...</option>
-                        <option>...</option>
-                        <option>...</option>
-                        <option>...</option>
-                        <option>...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
                     </select>
                     </div>
                 </div>
@@ -39,11 +39,11 @@
                         <label for="itemCondition">Condition</label>
                         <select id="itemCondition" class="form-control">
                             <option selected>Select</option>
-                            <option>Mint</option>
-                            <option>Near Mint</option>
-                            <option>Excellent</option>
-                            <option>Very-Good</option>
-                            <option>Fair</option>
+                            <option value="1">Mint</option>
+                            <option value="2">Near Mint</option>
+                            <option value="3">Excellent</option>
+                            <option value="4">Very-Good</option>
+                            <option value="5">Fair</option>
                         </select>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <label for="itemDescription">Description</label>
                     <textarea class="form-control" id="itemDescription" rows="3"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="newItemBtn" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>

@@ -16,7 +16,7 @@ CREATE TABLE `users` (
 
 CREATE TABLE `categories` (
   `categoryId` INT AUTO_INCREMENT NOT NULL,
-  `categoryName` VARCHAR(45) NOT NULL,
+  `categoryName` VARCHAR(45) NOT NULL UNIQUE,
   `categoryCreation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`categoryId`),
   KEY `Idx_002` (`categoryName`)
@@ -31,7 +31,7 @@ CREATE TABLE `itemCondition` (
 
 CREATE TABLE `items` (
   `itemId` INT AUTO_INCREMENT NOT NULL,
-  `itemName` VARCHAR(45) NOT NULL,
+  `itemName` VARCHAR(75) NOT NULL UNIQUE,
   `itemCategory` INT NOT NULL,
   `itemDescription` TINYTEXT,
   `itemCreation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
