@@ -18,7 +18,7 @@ router
         }
         return res.send('Incorrect User Name or Password')
       })
-      .catch(err => console.log(err))
+      .catch(new Error('Error logging in'))
   })
   // checks database to see if userName is availible if yes creates account
   // and sets the cookie session userName
@@ -35,7 +35,7 @@ router
         console.log(req.session.name)
         return res.send('Please choose a different User Name')
       })
-      .catch(err => console.log(err))
+      .catch(new Error('Error creating account'))
   })
   // Takes the inputs from the new item form checks to see if item exists already
   // if not creates the item then creates a record of the user owning the item
@@ -66,7 +66,7 @@ router
         })
       )
       .then(() => res.send(true))
-      .catch(err => console.log(err))
+      .catch(new Error('Error entering item'))
   })
   .get('/examples', (req, res) => {
     console.log(req.session.id)

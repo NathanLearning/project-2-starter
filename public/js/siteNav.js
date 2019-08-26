@@ -13,7 +13,7 @@ const login = e => {
     )
     .then(res => {
       if (res.data === true) {
-        return window.location.assign('/itemView')
+        return window.location.assign('/userView')
       }
       // give feedback to user that their password or user name is incorrect
       return console.log(res.data)
@@ -34,7 +34,7 @@ const createAccount = e => {
     )
     .then(res => {
       if (res.data === true) {
-        return window.location.assign('/itemView')
+        return window.location.assign('/userView')
       }
       // give feedback to user that their user name is already taken
       return console.log(res.data)
@@ -65,6 +65,16 @@ const newItem = e => {
     })
 }
 
+// Need to grab values from input then parse them to = names that are in the database
+// or set the values on the input to = names in the database
+const itemFilter = e => {
+  const category = 'categoryName'
+  const value = 'Baseball Cards'
+  axios
+    .get(`/item/filter/${category}/${value}`)
+    .then(res => console.log(res.data))
+}
+
 if (selectId('loginBtn')) {
   selectId('loginBtn').addEventListener('click', login)
 }
@@ -75,4 +85,8 @@ if (selectId('createAcctBtn')) {
 
 if (selectId('newItemBtn')) {
   selectId('newItemBtn').addEventListener('click', newItem)
+}
+
+if (selectId('filterBnt')) {
+  selectId('filterBtn').addEventListener('click', itemFilter)
 }

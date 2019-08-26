@@ -112,13 +112,29 @@ const newEntry = (table, dataObj) => {
   })
 }
 
+const deleteEntry = (table, whereCol, whereVal) => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      'DELETE FROM ?? WHERE ?? = ?',
+      [table, whereCol, whereVal],
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
 module.exports = {
   queryAll: queryAll,
   queryColumn: queryColumn,
   queryWhere: queryWhere,
   queryJoin: queryJoin,
   tableUpdate: tableUpdate,
-  newEntry: newEntry
+  newEntry: newEntry,
+  deleteEntry: deleteEntry
 }
 
 // queryAll('userQuantity').then(res => console.table(res))
