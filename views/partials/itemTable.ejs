@@ -1,0 +1,71 @@
+<table class="table table-hover" style="border-collapse:collapse;">
+  <thead>
+    <tr>
+      <th class="text-center col-md-3">Name</th>
+      <th class="text-center col-md-3">Category</th>
+      <th class="text-center col-md-2">Condition</th>
+      <th class="text-center col-md-2">Quantity</th>
+      <th class="col-md-2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(item => { %>
+    <tr id="<%= item.itemId %>">
+      <td
+        data-toggle="collapse"
+        data-target="#item<%= item.quantityId %>"
+        class="accordion-toggle text-center"
+      >
+        <%= item.itemName %>
+      </td>
+      <td
+        data-toggle="collapse"
+        data-target="#item<%= item.quantityId %>"
+        class="accordion-toggle text-center"
+      >
+        <%= item.categoryName %>
+      </td>
+      <td class="text-center">
+        <div class="form-group col-md-12">
+          <select
+            id="existingItemCondition<%= item.itemId %>"
+            class="form-control"
+          >
+            <option value="1">Mint</option>
+            <option value="2">Near Mint</option>
+            <option value="3">Excellent</option>
+            <option value="4">Very Good</option>
+            <option value="5">Fair</option>
+          </select>
+        </div>
+      </td>
+      <td>
+        <div class="form-group col-md-12">
+          <input
+            type="text"
+            class="form-control"
+            id="existingItemQuantity<%= item.itemId %>"
+            placeholder="1"
+          />
+        </div>
+      </td>
+      <td>
+        <button
+          type="submit"
+          id="<%= item.itemId %>"
+          class="btn btn-primary addExistingItemBtn"
+        >
+          Add
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="6" class="hiddenRow">
+        <div class="accordian-body collapse" id="item<%= item.quantityId %>">
+          <%= item.itemDescription %>
+        </div>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

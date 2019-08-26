@@ -42,6 +42,7 @@ const createAccount = e => {
     .catch(err => console.log(err))
 }
 
+// Collects information from the new item form then sends it over to the post route in api.js
 const newItem = e => {
   e.preventDefault()
   axios
@@ -60,9 +61,22 @@ const newItem = e => {
       if (res.data === true) {
         return window.location.reload()
       }
-      // give user feedback that item already exists!
+      // Need to implent giving user feedback that item already exists!
       return console.log('Item already exists!')
     })
+}
+
+// This route enables users to add existing items to their account
+// it sends the information over from the 'items' page to the route on api.js
+// where it is entered into the database
+const existingItem = e => {
+  axios
+    .post('/existing/item', {
+      itemId: e.target.id,
+      itemCondition: selectId(`existingItemCondition${e.target.id}`).value,
+      itemQuantity: selectId(`existingItemQuantity${e.target.id}`).value
+    })
+    .then(res => console.log(res.data))
 }
 
 // Need to grab values from input then parse them to = names that are in the database
@@ -75,6 +89,8 @@ const itemFilter = e => {
     .then(res => console.log(res.data))
 }
 
+// event listeners for various buttons
+// added the if statement so they don't throw an error if the #id is not present on the page
 if (selectId('loginBtn')) {
   selectId('loginBtn').addEventListener('click', login)
 }
@@ -90,3 +106,7 @@ if (selectId('newItemBtn')) {
 if (selectId('filterBnt')) {
   selectId('filterBtn').addEventListener('click', itemFilter)
 }
+
+document.querySelectorAll('.addExistingItemBtn').forEach(btn => {
+  btn.addEventListener('click', existingItem)
+})

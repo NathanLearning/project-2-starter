@@ -52,6 +52,23 @@ const queryWhere = (table, column, value) => {
   })
 }
 
+// specific function just to display items and their categories
+const queryItemJoin = () => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT * FROM items I 
+    JOIN categories C ON I.itemCategory = C.categoryId
+    ORDER BY I.itemCreation DESC`,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
 // This function allows you to search for any group from any table
 // And display any columns that you wish,
 // Pass the display columns in as an array
@@ -64,7 +81,7 @@ JOIN items I ON Q.itemId = I.itemId
 JOIN categories C ON I.itemCategory = C.categoryId
 JOIN users U ON Q.userId = U.userId
 JOIN itemCondition IC ON Q.itemConditionId = IC.itemConditionId
-WHERE ?? = ?`
+WHERE ?? = ? ORDER BY I.itemCreation DESC`
     connection.query(
       queryUrl,
       [displayCols, whereTblCol, colVal],
@@ -131,6 +148,7 @@ module.exports = {
   queryAll: queryAll,
   queryColumn: queryColumn,
   queryWhere: queryWhere,
+  queryItemJoin: queryItemJoin,
   queryJoin: queryJoin,
   tableUpdate: tableUpdate,
   newEntry: newEntry,
