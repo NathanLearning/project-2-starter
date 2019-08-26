@@ -1,9 +1,9 @@
-const path = require('path')
 const express = require('express')
 const router = express.Router()
-
-const { hash, compareHash, sessionCheck } = require('../authentication/hash')
-const { queryJoin } = require('../db/orm')
+// sessionCheck checks to see if a req.session.name has been set
+// aka if the person has logged in if not it redirects to the login page
+const { sessionCheck } = require('../authentication/hash')
+const { queryWhere, queryItemJoin, queryJoin } = require('../db/orm')
 
 router
   .get('/', (__, res) => {
@@ -14,6 +14,10 @@ router
   // checks to see if a cookie is set if not redirects to login page
   // if yes queries to get item information based on user name
   .get('/userView', sessionCheck, (req, res) => {
+    queryWhere('users', 'userName', req.session.name).then(user => {
+      req.session.userId = user[0].userId
+      console.log(req.session.userId)
+    })
     queryJoin(
       [
         'U.userId',
@@ -38,8 +42,20 @@ router
           items: results
         })
       })
-      .catch(new Error('Error querying data'))
+      .catch(new Error('Error getting data'))
   })
+  // just queries all items and renders them on a page
+  .get('/items', sessionCheck, (req, res) => {
+    queryItemJoin()
+      .then(results =>
+        res.render('itemView', {
+          title: 'Item View',
+          items: results
+        })
+      )
+      .catch(new Error('Error getting data'))
+  })
+  // Could be used to filter items by category
   .get('/item/filter/:category/:value', (req, res) => {
     console.log(req.params)
     queryJoin(
@@ -64,7 +80,7 @@ router
           items: results
         })
       })
-      .catch(new Error('Error querying data'))
+      .catch(new Error('Error getting data'))
   })
 
 module.exports = router
