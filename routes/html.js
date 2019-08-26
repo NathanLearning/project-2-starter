@@ -34,7 +34,8 @@ router
         //  need to fill in the table data within the then with the results of the query
         console.table(results)
         res.render('index', {
-          title: 'User View'
+          title: 'User View',
+          items: results
         })
       })
       .catch(new Error('Error querying data'))
@@ -59,7 +60,8 @@ router
       .then(results => {
         console.table(results)
         res.render('index', {
-          title: 'Filtered Items'
+          title: 'Filtered Items',
+          items: results
         })
       })
       .catch(new Error('Error querying data'))
