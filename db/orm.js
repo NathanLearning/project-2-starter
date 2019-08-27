@@ -53,12 +53,30 @@ const queryWhere = (table, column, value) => {
 }
 
 // specific function just to display items and their categories
-const queryItemJoin = () => {
+const queryItems = () => {
   return new Promise((resolve, reject) => {
     connection.query(
       `SELECT * FROM items I 
     JOIN categories C ON I.itemCategory = C.categoryId
     ORDER BY I.itemCreation DESC`,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
+const queryItemsFilter = category => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT * FROM items I 
+    JOIN categories C ON I.itemCategory = C.categoryId
+    WHERE C.categoryName = ?
+    ORDER BY I.itemCreation DESC`,
+      [category],
       (err, res) => {
         if (err) {
           return reject(err)
@@ -94,12 +112,32 @@ WHERE ?? = ? ORDER BY I.itemCreation DESC`
     )
   })
 }
-
 // queryJoin(
 //   ['I.itemName', 'IC.itemCondition', 'C.categoryName', 'Q.quantity'],
 //   'U.userName',
 //   'Mitch'
 // )
+
+const queryUserItemsFilter = (displayCols, whereTblCol, colVal, userId) => {
+  return new Promise((resolve, reject) => {
+    const queryUrl = `SELECT ?? FROM userQuantity Q
+JOIN items I ON Q.itemId = I.itemId
+JOIN categories C ON I.itemCategory = C.categoryId
+JOIN users U ON Q.userId = U.userId
+JOIN itemCondition IC ON Q.itemConditionId = IC.itemConditionId
+WHERE ?? = ? AND U.userId = ? ORDER BY I.itemCreation DESC`
+    connection.query(
+      queryUrl,
+      [displayCols, whereTblCol, colVal, userId],
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
 
 // Takes table and column then the value you want to change then the column and its value where you want to change it
 const tableUpdate = (table, column, value, whereCol, colVal) => {
@@ -148,8 +186,10 @@ module.exports = {
   queryAll: queryAll,
   queryColumn: queryColumn,
   queryWhere: queryWhere,
-  queryItemJoin: queryItemJoin,
+  queryItems: queryItems,
+  queryItemsFilter: queryItemsFilter,
   queryJoin: queryJoin,
+  queryUserItemsFilter: queryUserItemsFilter,
   tableUpdate: tableUpdate,
   newEntry: newEntry,
   deleteEntry: deleteEntry
