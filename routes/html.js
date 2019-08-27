@@ -3,7 +3,13 @@ const router = express.Router()
 // sessionCheck checks to see if a req.session.name has been set
 // aka if the person has logged in if not it redirects to the login page
 const { sessionCheck } = require('../authentication/hash')
-const { queryWhere, queryItemJoin, queryJoin } = require('../db/orm')
+const {
+  queryWhere,
+  queryItems,
+  queryItemsFilter,
+  queryJoin,
+  queryUserItemsFilter
+} = require('../db/orm')
 
 router
   .get('/', (__, res) => {
@@ -13,10 +19,9 @@ router
   })
   // checks to see if a cookie is set if not redirects to login page
   // if yes queries to get item information based on user name
-  .get('/userView', sessionCheck, (req, res) => {
+  .get('/user', sessionCheck, (req, res) => {
     queryWhere('users', 'userName', req.session.name).then(user => {
       req.session.userId = user[0].userId
-      console.log(req.session.userId)
     })
     queryJoin(
       [
@@ -45,8 +50,8 @@ router
       .catch(new Error('Error getting data'))
   })
   // just queries all items and renders them on a page
-  .get('/items', sessionCheck, (req, res) => {
-    queryItemJoin()
+  .get('/items', sessionCheck, (__, res) => {
+    queryItems()
       .then(results =>
         res.render('itemView', {
           title: 'Item View',
@@ -55,10 +60,22 @@ router
       )
       .catch(new Error('Error getting data'))
   })
-  // Could be used to filter items by category
-  .get('/item/filter/:category/:value', (req, res) => {
-    console.log(req.params)
-    queryJoin(
+  // put the category name into the url and it will filter items by that category only
+  // needs the get route created and tied in on siteNav.js
+  .get('/items/:category', sessionCheck, (req, res) => {
+    queryItemsFilter(req.params.category)
+      .then(results =>
+        res.render('itemView', {
+          title: 'Item View',
+          items: results
+        })
+      )
+      .catch(new Error('Error getting data'))
+  })
+  // Works to filter user items but needs to be hooked into siteNav userItemFilter function
+  // to be dynamic perhaps a drop down that allows selection of category?
+  .get('/user/:category/:value', sessionCheck, (req, res) => {
+    queryUserItemsFilter(
       [
         'U.userId',
         'I.itemId',
@@ -71,7 +88,8 @@ router
         'Q.quantityId'
       ],
       req.params.category,
-      req.params.value
+      req.params.value,
+      req.session.userId
     )
       .then(results => {
         console.table(results)

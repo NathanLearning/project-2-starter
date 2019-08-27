@@ -13,7 +13,7 @@ const login = e => {
     )
     .then(res => {
       if (res.data === true) {
-        return window.location.assign('/userView')
+        return window.location.assign('/user')
       }
       // give feedback to user that their password or user name is incorrect
       return console.log(res.data)
@@ -34,7 +34,7 @@ const createAccount = e => {
     )
     .then(res => {
       if (res.data === true) {
-        return window.location.assign('/userView')
+        return window.location.assign('/user')
       }
       // give feedback to user that their user name is already taken
       return console.log(res.data)
@@ -81,12 +81,10 @@ const existingItem = e => {
 
 // Need to grab values from input then parse them to = names that are in the database
 // or set the values on the input to = names in the database
-const itemFilter = e => {
+const userItemFilter = e => {
   const category = 'categoryName'
   const value = 'Baseball Cards'
-  axios
-    .get(`/item/filter/${category}/${value}`)
-    .then(res => console.log(res.data))
+  axios.get(`/user/${category}/${value}`).then(res => console.log(res.data))
 }
 
 // event listeners for various buttons
@@ -104,7 +102,7 @@ if (selectId('newItemBtn')) {
 }
 
 if (selectId('filterBnt')) {
-  selectId('filterBtn').addEventListener('click', itemFilter)
+  selectId('filterBtn').addEventListener('click', userItemFilter)
 }
 
 document.querySelectorAll('.addExistingItemBtn').forEach(btn => {
