@@ -33,11 +33,12 @@ const createAccount = e => {
       selectId('loginForm').reset()
     )
     .then(res => {
-      if (res.data === true) {
-        return window.location.assign('/user')
+      console.log(res)
+      if (res.data.result === false) {
+        return console.log(res.data)
       }
+      return window.location.assign('/user')
       // give feedback to user that their user name is already taken
-      return console.log(res.data)
     })
     .catch(err => console.log(err))
 }

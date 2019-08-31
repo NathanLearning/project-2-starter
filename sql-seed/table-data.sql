@@ -1,5 +1,4 @@
 
-
 USE itemCollector;
 INSERT INTO categories (categoryName)
 VALUE
@@ -44,7 +43,7 @@ VALUE
 
 
 
-USE itemCollector;
+-- USE itemCollector;
 -- DELETE FROM userQuantity WHERE itemId = 1 AND userId = 1
 -- SELECT * FROM users;
 
