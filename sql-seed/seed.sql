@@ -13,8 +13,9 @@ CREATE TABLE `users` (
   `userLogin` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
   KEY `Idx_001` (`userName`)
-);
-
+  )
+  ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=4;
+  
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `categoryId` INT AUTO_INCREMENT NOT NULL,
@@ -44,6 +45,13 @@ CREATE TABLE `items` (
   CONSTRAINT `FK_003` FOREIGN KEY `fkIdx_003` (`itemCategory`) 
   REFERENCES `categories` (`categoryId`),
   KEY `Idx_004` (`itemName`)
+  --
+--   insert into tableName (ImageColumn)
+-- SELECT BulkColumn
+-- FROM Openrowset( Bulk 'image..Path..here', Single_Blob) as img
+ALTER TABLE `items`
+ADD COLUMN `image_path` varchar(1024)
+--
 );
 
 DROP TABLE IF EXISTS `userQuantity`;

@@ -1,80 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('partials/head') %>
-  </head>
-  <body>
-    <div class="container">
-      <button href="#form" class="btn btn-primary" data-toggle="collapse">
-        Add Item
-      </button>
-      <div class="card , collapse" id="form">
-        <h3 class="card-header">Add Item</h3>
-        <div class="card-body">
-          <!-- <h5 class="card-title">Special title treatment</h5> -->
-          <form id="newItemForm">
-            <div class="form-row">
-              <div class="form-group col-md-8">
-                <label for="itemName">Name of Item</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="itemName"
-                  placeholder="Petrified Banana"
-                />
-              </div>
-              <div class="form-group col-md-4">
-                <label for="itemType">Category</label>
-                <select id="itemType" class="form-control">
-                  <option selected>Select</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
+
+<head>
+  <%- include('partials/head') %>
+</head>
+
+<body>
+  <div class="container">
+
+
+<button href="#form" class="btn btn-primary" data-toggle="collapse">
+      Add Item
+    </button>
+    <div class="card , collapse" id="form">
+      <h3 class="card-header">Add Item</h3>
+      <div class="card-body">
+        <!-- <h5 class="card-title">Special title treatment</h5> -->
+        <form id="newItemForm">
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label for="itemName">Name of Item</label>
+              <input type="text" class="form-control" id="itemName" placeholder="Petrified Banana" />
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <label for="itemQuantity">Quantity</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="itemQuantity"
-                  placeholder="3"
-                />
-              </div>
-              <div class="form-group col-md-4">
-                <label for="itemCondition">Condition</label>
-                <select id="itemCondition" class="form-control">
-                  <option selected>Select</option>
-                  <option value="1">Mint</option>
-                  <option value="2">Near Mint</option>
-                  <option value="3">Excellent</option>
-                  <option value="4">Very-Good</option>
-                  <option value="5">Fair</option>
-                </select>
-              </div>
+            <div class="form-group col-md-4">
+              <label for="itemType">Category</label>
+              <select id="itemType" class="form-control">
+                <option selected>Select</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
             </div>
-            <div class="form-group">
-              <label for="itemDescription">Description</label>
-              <textarea
-                class="form-control"
-                id="itemDescription"
-                rows="3"
-              ></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="itemQuantity">Quantity</label>
+              <input type="text" class="form-control" id="itemQuantity" placeholder="3" />
             </div>
-            <button type="submit" id="newItemBtn" class="btn btn-primary">
-              Submit
-            </button>
-          </form>
-        </div>
+            <div class="form-group col-md-4">
+              <label for="itemCondition">Condition</label>
+              <select id="itemCondition" class="form-control">
+                <option selected>Select</option>
+                <option value="1">Mint</option>
+                <option value="2">Near Mint</option>
+                <option value="3">Excellent</option>
+                <option value="4">Very-Good</option>
+                <option value="5">Fair</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="itemDescription">Description</label>
+            <textarea class="form-control" id="itemDescription" rows="3"></textarea>
+          </div>
+          <button type="submit" id="newItemBtn" class="btn btn-primary">
+            Submit
+          </button>
+          <div class="form-group col-md-8">
+            <label for="itemName">Avatar</label>
+            <input type="text" class="form-control" id="itemName" placeholder="Petrified Banana" />
+          </div>
+        </form>
       </div>
-      <%- include('partials/userTable') %>
     </div>
-    <%- include('partials/scripts') %> <%- include('partials/footer') %>
-  </body>
+    <%- include('partials/userTable') %>
+  </div>
+  <%- include('partials/scripts') %> <%- include('partials/footer') %>
+</body>
+
 </html>

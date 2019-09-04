@@ -3,6 +3,7 @@ const router = express.Router()
 // sessionCheck checks to see if a req.session.name has been set
 // aka if the person has logged in if not it redirects to the login page
 const { sessionCheck } = require('../authentication/hash')
+
 const {
   queryWhere,
   queryItems,
@@ -15,6 +16,7 @@ router
   .get('/', (__, res) => {
     res.render('login', {
       title: 'My Cool App'
+      
     })
   })
   // checks to see if a cookie is set if not redirects to login page
