@@ -17,11 +17,11 @@ router
       title: 'Managerly'
     })
   })
-  // .get('/', (__, res) => {
-  //   res.render('login', {
-  //     title: 'My Cool App'
-  //   })
-  // })
+  .get('/login', (__, res) => {
+    res.render('login', {
+      title: 'My Cool App'
+    })
+  })
   // checks to see if a cookie is set if not redirects to login page
   // if yes queries to get item information based on user name
   .get('/user', sessionCheck, (req, res) => {
