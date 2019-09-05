@@ -31,5 +31,11 @@ h1 {
 }
 
 #addItemBtn {
-  padding-bottom: 1px;
+  background-color: #e3f2fd;
+  border-color: #ccc;
+  color: black;
+}
+
+.navbar-toggler-icon {
+  box-shadow:0 0 1.5em rgba(0,0,0,0.5);
 }
