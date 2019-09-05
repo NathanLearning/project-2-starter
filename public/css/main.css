@@ -29,3 +29,7 @@ h1 {
 .hiddenRow {
   padding: 0 1em !important;
 }
+
+#addItemBtn {
+  padding-bottom: 1px;
+}
