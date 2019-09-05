@@ -25,6 +25,9 @@ router
   // checks to see if a cookie is set if not redirects to login page
   // if yes queries to get item information based on user name
   .get('/user', sessionCheck, (req, res) => {
+    queryWhere('users', 'userName', req.session.name).then(user => {
+      req.session.userId = user[0].userId
+    })
     queryJoin(
       [
         'U.userId',
@@ -46,7 +49,6 @@ router
           items: results
         })
       })
-      .then(() => queryWhere('users', 'userName', req.session.name))
       .catch(new Error('Error getting data'))
   })
   // just queries all items and renders them on a page
