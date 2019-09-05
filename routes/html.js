@@ -19,7 +19,7 @@ router
   })
   .get('/login', (__, res) => {
     res.render('login', {
-      title: 'My Cool App'
+      title: 'Managerly Login'
     })
   })
   // checks to see if a cookie is set if not redirects to login page
@@ -41,18 +41,12 @@ router
       req.session.name
     )
       .then(results => {
-        // need to attach the ids to the table data when building to be able to grab the item later on with a query
-        //  need to fill in the table data within the then with the results of the query
-        console.table(results)
         res.render('index', {
           title: 'User View',
           items: results
         })
       })
-      .then(name => console.log(req.session.name))
       .then(() => queryWhere('users', 'userName', req.session.name))
-      .then(user => console.log(user))
-      // req.session.userId = user[0].userId
       .catch(new Error('Error getting data'))
   })
   // just queries all items and renders them on a page
@@ -98,7 +92,7 @@ router
       req.session.userId
     )
       .then(results => {
-        console.table(results)
+        // console.table(results)
         res.render('index', {
           title: 'Filtered Items',
           items: results
