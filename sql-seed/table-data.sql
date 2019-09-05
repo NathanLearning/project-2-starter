@@ -1,12 +1,3 @@
-USE itemCollector;
-
--- INSERT INTO users (userName, userPassword)
--- VALUE
--- ('Mitch', '1234'),
--- ('Nathan', '6789'),
--- ('Jalin', '1457'),
--- ('Bob', '1359'),
--- ('Jim', '9864');
 
 USE itemCollector;
 INSERT INTO categories (categoryName)
@@ -20,7 +11,7 @@ VALUE
 ('Mint'),
 ('Near Mint'),
 ('Excellent'),
-('Good'),
+('Very Good'),
 ('Fair');
 
 USE itemCollector;
@@ -52,7 +43,7 @@ VALUE
 
 
 
-USE itemCollector;
+-- USE itemCollector;
 -- DELETE FROM userQuantity WHERE itemId = 1 AND userId = 1
 -- SELECT * FROM users;
 

@@ -1,0 +1,32 @@
+<table class="table table-hover" style="border-collapse:collapse;">
+  <thead>
+    <tr>
+      <th class="text-center">Name</th>
+      <th class="text-center">Condition</th>
+      <th class="text-center">Category</th>
+      <th class="text-center">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(item => { %>
+    <tr
+      data-toggle="collapse"
+      data-target="#item<%= item.quantityId %>"
+      class="accordion-toggle"
+      id="<%= item.quantityId %>"
+    >
+      <td class="text-center align-middle"><%= item.itemName %></td>
+      <td class="text-center align-middle"><%= item.itemCondition %></td>
+      <td class="text-center align-middle"><%= item.categoryName %></td>
+      <td class="text-center align-middle"><%= item.quantity %></td>
+    </tr>
+    <tr>
+      <td colspan="6" class="hiddenRow">
+        <div class="accordian-body collapse" id="item<%= item.quantityId %>">
+          <%= item.itemDescription %>
+        </div>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

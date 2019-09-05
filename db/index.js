@@ -5,6 +5,7 @@ const opts = process.env.JAWSDB_URL || {
   user: 'root',
   password: 'password',
   database: 'itemCollector'
+  // debug: true
 }
 
 const connection = mysql.createConnection(opts)

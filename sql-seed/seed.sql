@@ -4,6 +4,7 @@ CREATE DATABASE `itemCollector`;
 
 USE `itemCollector`;
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userId` INT AUTO_INCREMENT NOT NULL,
   `userName` VARCHAR(45) NOT NULL UNIQUE,
@@ -14,14 +15,16 @@ CREATE TABLE `users` (
   KEY `Idx_001` (`userName`)
 );
 
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `categoryId` INT AUTO_INCREMENT NOT NULL,
-  `categoryName` VARCHAR(45) NOT NULL,
+  `categoryName` VARCHAR(45) NOT NULL UNIQUE,
   `categoryCreation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`categoryId`),
   KEY `Idx_002` (`categoryName`)
 );
 
+DROP TABLE IF EXISTS `itemCondition`;
 CREATE TABLE `itemCondition` (
   `itemConditionId` INT AUTO_INCREMENT NOT NULL,
   `itemCondition` VARCHAR(45) NOT NULL,
@@ -29,11 +32,12 @@ CREATE TABLE `itemCondition` (
   KEY `Idx_007` (`itemCondition`)
 );
 
+DROP TABLE IF EXISTS `items`;
 CREATE TABLE `items` (
   `itemId` INT AUTO_INCREMENT NOT NULL,
-  `itemName` VARCHAR(45) NOT NULL,
+  `itemName` VARCHAR(75) NOT NULL UNIQUE,
   `itemCategory` INT NOT NULL,
-  `itemDescription` TINYTEXT,
+  `itemDescription` TEXT,
   `itemCreation` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (itemId),
   KEY `fkIdx_003` (`itemCategory`),
@@ -42,6 +46,7 @@ CREATE TABLE `items` (
   KEY `Idx_004` (`itemName`)
 );
 
+DROP TABLE IF EXISTS `userQuantity`;
 CREATE TABLE `userQuantity` (
   `quantityId` INT AUTO_INCREMENT NOT NULL,
   `userId` INT NOT NULL,
@@ -60,9 +65,13 @@ CREATE TABLE `userQuantity` (
   REFERENCES `itemCondition` (`itemConditionId`)
 );
 
+DROP TABLE IF EXISTS `userNotifications`;
 CREATE TABLE `userNotifications` (
   `notificationId` INT AUTO_INCREMENT NOT NULL,
-  `quantityId` INT NOT NULL,
+  `user1TradeQuantityId` INT NOT NULL,
+  `user1Quantity` INT NOT NULL,
+  `user2TradeQuantityId` INT NOT NULL,
+  `user2Quantity` INT NOT NULL,
   `notification` TINYTEXT,
   PRIMARY KEY (`notificationId`)
 );

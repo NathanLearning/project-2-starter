@@ -52,6 +52,41 @@ const queryWhere = (table, column, value) => {
   })
 }
 
+// specific function just to display items and their categories
+const queryItems = () => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT * FROM items I 
+    JOIN categories C ON I.itemCategory = C.categoryId
+    ORDER BY I.itemCreation DESC`,
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
+const queryItemsFilter = category => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `SELECT * FROM items I 
+    JOIN categories C ON I.itemCategory = C.categoryId
+    WHERE C.categoryName = ?
+    ORDER BY I.itemCreation DESC`,
+      [category],
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
 // This function allows you to search for any group from any table
 // And display any columns that you wish,
 // Pass the display columns in as an array
@@ -64,7 +99,7 @@ JOIN items I ON Q.itemId = I.itemId
 JOIN categories C ON I.itemCategory = C.categoryId
 JOIN users U ON Q.userId = U.userId
 JOIN itemCondition IC ON Q.itemConditionId = IC.itemConditionId
-WHERE ?? = ?`
+WHERE ?? = ? ORDER BY I.itemCreation DESC`
     connection.query(
       queryUrl,
       [displayCols, whereTblCol, colVal],
@@ -77,12 +112,32 @@ WHERE ?? = ?`
     )
   })
 }
-
 // queryJoin(
 //   ['I.itemName', 'IC.itemCondition', 'C.categoryName', 'Q.quantity'],
 //   'U.userName',
 //   'Mitch'
 // )
+
+const queryUserItemsFilter = (displayCols, whereTblCol, colVal, userId) => {
+  return new Promise((resolve, reject) => {
+    const queryUrl = `SELECT ?? FROM userQuantity Q
+JOIN items I ON Q.itemId = I.itemId
+JOIN categories C ON I.itemCategory = C.categoryId
+JOIN users U ON Q.userId = U.userId
+JOIN itemCondition IC ON Q.itemConditionId = IC.itemConditionId
+WHERE ?? = ? AND U.userId = ? ORDER BY I.itemCreation DESC`
+    connection.query(
+      queryUrl,
+      [displayCols, whereTblCol, colVal, userId],
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
 
 // Takes table and column then the value you want to change then the column and its value where you want to change it
 const tableUpdate = (table, column, value, whereCol, colVal) => {
@@ -112,13 +167,33 @@ const newEntry = (table, dataObj) => {
   })
 }
 
+const deleteEntry = (table, whereCol, whereVal) => {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      'DELETE FROM ?? WHERE ?? = ?',
+      [table, whereCol, whereVal],
+      (err, res) => {
+        if (err) {
+          return reject(err)
+        }
+        return resolve(res)
+      }
+    )
+  })
+}
+
 module.exports = {
   queryAll: queryAll,
   queryColumn: queryColumn,
   queryWhere: queryWhere,
+  queryItems: queryItems,
+  queryItemsFilter: queryItemsFilter,
   queryJoin: queryJoin,
+  queryUserItemsFilter: queryUserItemsFilter,
   tableUpdate: tableUpdate,
-  newEntry: newEntry
+  newEntry: newEntry,
+  deleteEntry: deleteEntry
 }
 
 // queryAll('userQuantity').then(res => console.table(res))
+
