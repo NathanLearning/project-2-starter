@@ -5,6 +5,8 @@ const session = require('express-session')
 const { db } = require('./db')
 const htmlRoutes = require('./routes/html')
 const apiRoutes = require('./routes/api')
+const multer = require('multer')
+const upload = multer({dest: __dirname + '/uploads/images'})
 
 const sessionConfig = {
   secret: 'test',
@@ -27,6 +29,13 @@ app
   .use(express.urlencoded({ extended: false }))
   .use(express.json())
   .use(express.static(path.join(__dirname, 'public')))
+  .post('/upload', upload.single('photo'), (req, res) => {
+    if(req.file) {
+      res.json(req.file);
+    }
+    else throw 'error';
+  })
+  .post('/path', upload.single('avatar'), function (req, res, next){})
   .use(session(sessionConfig))
   .use(db)
   .use(htmlRoutes)

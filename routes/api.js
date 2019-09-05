@@ -76,5 +76,6 @@ router
       .then(() => res.send('Item added!'))
       .catch(new Error('Error entering item'))
   })
-
+//gets login page when logout button is pressed
+  .get('/login', function(request, response) { response.render('login.ejs'); }); 
 module.exports = router
