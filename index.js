@@ -1,12 +1,13 @@
 require('dotenv').config()
 const path = require('path')
 const express = require('express')
-const session = require('express-session')
+const app = express()
+const PORT = process.env.PORT || 3030
 const uuidv1 = require('uuid/v1')
 const { db } = require('./db')
 const htmlRoutes = require('./routes/html')
 const apiRoutes = require('./routes/api')
-
+const session = require('express-session')
 const sessionConfig = {
   secret: 'test',
   resave: false,
@@ -15,13 +16,6 @@ const sessionConfig = {
   cookie: { secure: 'auto', maxAge: 600000 },
   genuuid: () => uuidv1()
 }
-
-// Just left these here was using for when I was testing can get rid of them later.
-// const { queryJoin, queryAll, queryWhere } = require('./db/orm')
-// const { hash, compareHash } = require('./authentication/hash')
-
-const app = express()
-const PORT = process.env.PORT || 3030
 
 app
   .set('views', path.join(__dirname, 'views'))

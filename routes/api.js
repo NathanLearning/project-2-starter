@@ -24,10 +24,13 @@ router
   // and sets the cookie session userName
   // sends true or false back to the front end post request
   .post('/createAccount', (req, res) => {
+    const passwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
+    if (!req.body.password.match(passwd)) {
+      return res.json({ result: false })
+    }
     hash(req.body.userName, req.body.password)
       .then(response => {
         if (response) {
-          console.log(response)
           // saving user name to session for use later
           req.session.name = req.body.userName
           return res.json({ result: true })
