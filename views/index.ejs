@@ -10,17 +10,26 @@
     <!-- creat a card type that displays user name, photo, about, likes and items -->
     <div class="userTable">
       
+
         <div class="user-body">
-          <h5 class="mt-0">User Name</h5>
-          <div class="userPhoto">
-        <img src="https://www.google.com/url?q=https://via.placeholder.com/150&sa=D&source=hangouts&ust=1567737935145000&usg=AFQjCNGNfoNcuo97Blj0VGgr-esES6ti5w"
-          class="mr-3">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam aliquid fuga aliquam perspiciatis
-          repellendus illum architecto illo doloremque repudiandae dolor laudantium iure provident quo, reiciendis odit
-          ut non placeat doloribus.
+          <h3 class="row-md-3">User Name</h3>
+          <div class="row">
+          <div class="col-md-3">
+            <div class="userPhoto">
+              <img src="https://via.placeholder.com/150">
+            </div>
+          </div>
+          <p class="col-md-6">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam aliquid fuga aliquam perspiciatis
+            repellendus illum architecto illo doloremque repudiandae dolor laudantium iure provident quo, reiciendis
+            odit
+            ut non placeat doloribus.
+          </p>
         </div>
       </div>
     </div>
+  </br>
+    <div id="add-button">
     <button href="#form" class="btn btn-primary" data-toggle="collapse">
       Add Item
     </button>
@@ -83,6 +92,7 @@
         </form>
       </div>
     </div>
+  </div>
     <%- include('partials/userTable') %>
   </div>
   <%- include('partials/scripts') %> <%- include('partials/footer') %>
