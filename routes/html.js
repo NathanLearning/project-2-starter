@@ -12,8 +12,12 @@ const {
 } = require('../db/orm')
 
 router
-  .get('/', (req, res) => {
-    console.log(req.session)
+  .get('/', (__, res) => {
+    res.render('landing', {
+      title: 'Managerly'
+    })
+  })
+  .get('/login', (__, res) => {
     res.render('login', {
       title: 'My Cool App'
     })
