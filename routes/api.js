@@ -27,11 +27,12 @@ router
     hash(req.body.userName, req.body.password)
       .then(response => {
         if (response) {
+          console.log(response)
           // saving user name to session for use later
           req.session.name = req.body.userName
-          return res.send(true)
+          return res.json({ result: true })
         }
-        return res.send('Please choose a different User Name')
+        return res.json({ result: false })
       })
       .catch(new Error('Error creating account'))
   })

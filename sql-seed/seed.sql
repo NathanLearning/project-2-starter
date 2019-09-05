@@ -69,7 +69,9 @@ DROP TABLE IF EXISTS `userNotifications`;
 CREATE TABLE `userNotifications` (
   `notificationId` INT AUTO_INCREMENT NOT NULL,
   `user1TradeQuantityId` INT NOT NULL,
+  `user1Quantity` INT NOT NULL,
   `user2TradeQuantityId` INT NOT NULL,
+  `user2Quantity` INT NOT NULL,
   `notification` TINYTEXT,
   PRIMARY KEY (`notificationId`)
 );
